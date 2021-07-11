@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import com.screening.screeningtest.R
 import com.screening.screeningtest.databinding.FragmentHomeBinding
@@ -30,6 +31,13 @@ class HomeFragment : Fragment() {
             if (binding.nameEditText.text.isNullOrEmpty()) {
                 binding.nameEditText.error = "Field cannot be blank"
             } else {
+
+                if(isPalindrome(binding.nameEditText.text.toString())) {
+                    Toast.makeText(context, "isPalindrome", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(context, "not palindrome", Toast.LENGTH_SHORT).show()
+                }
+
                 val fragment = ChooserFragment()
                 val args = Bundle().apply {
                     putString(ChooserFragment.USER_NAME, binding.nameEditText.text.toString())
@@ -50,4 +58,10 @@ class HomeFragment : Fragment() {
         _binding = null
     }
 
+    private fun isPalindrome(word: String): Boolean {
+        val re = "/[^a-z0-9]+/g".toRegex()
+        val palindrome = word.toLowerCase().replace(re, "")
+        return palindrome.replace("\\s".toRegex(), "") == palindrome.split("").reversed().joinToString("").replace(re, "").replace("\\s".toRegex(), "")
+
+    }
 }

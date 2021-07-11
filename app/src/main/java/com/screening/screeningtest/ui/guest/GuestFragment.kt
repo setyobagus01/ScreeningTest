@@ -1,7 +1,6 @@
 package com.screening.screeningtest.ui.guest
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,7 +61,9 @@ class GuestFragment : Fragment() {
         }
 
         guestAdapter.onItemClick = { selectedData ->
-            setFragmentResult("requestKey", bundleOf(ChooserFragment.GUEST_NAME to selectedData.name, ChooserFragment.GUEST_BIRTH to DataModification.dayConverter(selectedData.birthDate)))
+            setFragmentResult("requestKey", bundleOf(ChooserFragment.GUEST_NAME to selectedData.name,
+                ChooserFragment.GUEST_BIRTH to DataModification.dayConverter(selectedData.birthDate),
+            ChooserFragment.GUEST_PRIME to DataModification.isPrimeNumber(selectedData.birthDate)))
             parentFragmentManager.popBackStackImmediate()
         }
     }

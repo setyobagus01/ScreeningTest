@@ -48,18 +48,19 @@ class ChooserFragment : Fragment() {
             guestName = bundle.getString(GUEST_NAME)
             binding.btnGuest.text = if (guestName.isNullOrEmpty()) "Pilih Guest" else guestName
             val guestBirth = bundle.getString(GUEST_BIRTH)?.toInt()
+            val guestPrimeNumber = bundle.getString(GUEST_PRIME)
             if (guestBirth != null) {
                 when {
                     guestBirth % 2 == 0 && guestBirth % 3 == 0 -> Toast.makeText(
                         context,
-                        "iOS",
+                        "iOS and $guestPrimeNumber",
                         Toast.LENGTH_SHORT
                     ).show()
-                    guestBirth % 2 == 0 -> Toast.makeText(context, "Blackberry", Toast.LENGTH_SHORT)
+                    guestBirth % 2 == 0 -> Toast.makeText(context, "Blackberry and $guestPrimeNumber", Toast.LENGTH_SHORT)
                         .show()
-                    guestBirth % 3 == 0 -> Toast.makeText(context, "Android", Toast.LENGTH_SHORT)
+                    guestBirth % 3 == 0 -> Toast.makeText(context, "Android and $guestPrimeNumber", Toast.LENGTH_SHORT)
                         .show()
-                    else -> Toast.makeText(context, "Feature Phone", Toast.LENGTH_SHORT).show()
+                    else -> Toast.makeText(context, "Feature Phone and $guestPrimeNumber", Toast.LENGTH_SHORT).show()
                 }
             }
         }
@@ -97,6 +98,7 @@ class ChooserFragment : Fragment() {
         const val EVENT_NAME = "EVENT_NAME"
         const val GUEST_NAME = "GUEST_NAME"
         const val GUEST_BIRTH = "GUEST_BIRTH"
+        const val GUEST_PRIME = "GUEST_PRIME"
     }
 
     override fun onDestroyView() {
