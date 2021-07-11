@@ -8,5 +8,8 @@ data class Event(
     var id: Int,
     var name: String,
     var date: String,
-    var image: String
+    var image: String,
+    var lat: String,
+    var long: String,
+    var description: String,
 ): Parcelable

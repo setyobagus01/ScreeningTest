@@ -20,6 +20,7 @@ allprojects {
     repositories {
         google()
         jcenter()
+        maven { url 'https://mapbox.bintray.com/mapbox' }
     }
 }
 
@@ -30,4 +31,6 @@ task clean(type: Delete) {
 ext {
     lifecycle_version = "2.3.1"
     room_version = "2.3.0"
+    mapbox_version = "9.2.0"
+    mapbox_annotation_version = "0.8.0"
 }

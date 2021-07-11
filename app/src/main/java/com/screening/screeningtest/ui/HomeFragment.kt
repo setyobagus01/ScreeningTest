@@ -53,6 +53,16 @@ class HomeFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        activity?.actionBar?.hide()
+    }
+
+    override fun onStop() {
+        super.onStop()
+        activity?.actionBar?.show()
+    }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

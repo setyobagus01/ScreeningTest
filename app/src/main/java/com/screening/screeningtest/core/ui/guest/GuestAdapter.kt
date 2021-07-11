@@ -1,4 +1,4 @@
-package com.screening.screeningtest.core.ui.event
+package com.screening.screeningtest.core.ui.guest
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,6 +18,11 @@ class GuestAdapter: RecyclerView.Adapter<GuestAdapter.GuestViewHolder>() {
         if (guests == null) return
         guestList.clear()
         guestList.addAll(guests)
+        notifyDataSetChanged()
+    }
+
+    fun clearData() {
+        guestList.clear()
         notifyDataSetChanged()
     }
 

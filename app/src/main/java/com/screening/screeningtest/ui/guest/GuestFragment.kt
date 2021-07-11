@@ -12,7 +12,7 @@ import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
 import com.screening.screeningtest.core.data.utils.DataState
 import com.screening.screeningtest.core.domain.model.Guest
-import com.screening.screeningtest.core.ui.event.GuestAdapter
+import com.screening.screeningtest.core.ui.guest.GuestAdapter
 import com.screening.screeningtest.databinding.FragmentGuestBinding
 import com.screening.screeningtest.ui.ChooserFragment
 import com.screening.screeningtest.utils.DataModification
@@ -26,6 +26,8 @@ class GuestFragment : Fragment() {
 
     private val viewModel: GuestViewModel by viewModels()
 
+    private var guestAdapter: GuestAdapter? = null
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,22 +39,17 @@ class GuestFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        guestAdapter = GuestAdapter()
+        getData()
 
-        viewModel.setStateEvent(MainStateEvent.GetGuestEvent)
-        val guestAdapter = GuestAdapter()
-        viewModel.dataState.observe(viewLifecycleOwner, { guest ->
-            when (guest) {
-                is DataState.Success<List<Guest>> -> {
-                    guestAdapter.setGuest(guest.data)
-                }
-                is DataState.Error -> {
-                    Toast.makeText(context, guest.exception.message, Toast.LENGTH_SHORT)
-                }
-                DataState.Loading -> {
 
-                }
-            }
-        })
+        binding.swipeRefresh.setOnRefreshListener {
+            guestAdapter?.clearData()
+            getData()
+            guestAdapter = GuestAdapter()
+            binding.rvGuest.adapter = guestAdapter
+            binding.swipeRefresh.isRefreshing = false
+        }
 
         binding.rvGuest.apply {
             layoutManager = GridLayoutManager(context, 2)
@@ -60,11 +57,29 @@ class GuestFragment : Fragment() {
             setHasFixedSize(true)
         }
 
-        guestAdapter.onItemClick = { selectedData ->
+        guestAdapter?.onItemClick = { selectedData ->
             setFragmentResult("requestKey", bundleOf(ChooserFragment.GUEST_NAME to selectedData.name,
                 ChooserFragment.GUEST_BIRTH to DataModification.dayConverter(selectedData.birthDate),
             ChooserFragment.GUEST_PRIME to DataModification.isPrimeNumber(selectedData.birthDate)))
             parentFragmentManager.popBackStackImmediate()
         }
+    }
+
+    private fun getData() {
+        viewModel.setStateEvent(MainStateEvent.GetGuestEvent)
+
+        viewModel.dataState.observe(viewLifecycleOwner, { guest ->
+            when (guest) {
+                is DataState.Success<List<Guest>> -> {
+                    guestAdapter?.setGuest(guest.data)
+                }
+                is DataState.Error -> {
+                    Toast.makeText(context, guest.exception.message, Toast.LENGTH_SHORT).show()
+                }
+                DataState.Loading -> {
+
+                }
+            }
+        })
     }
 }

@@ -79,4 +79,13 @@ dependencies {
     kapt "androidx.room:room-compiler:$room_version"
 
     implementation 'androidx.navigation:navigation-fragment-ktx:2.3.5'
+
+
+
+    //3rd party library
+    implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
+    implementation "com.mapbox.mapboxsdk:mapbox-android-sdk:9.2.0"
+    implementation "com.mapbox.mapboxsdk:mapbox-android-plugin-annotation-v8:0.7.0"
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-navigation-ui:0.42.6'
+    implementation 'com.mapbox.mapboxsdk:mapbox-android-telemetry:6.1.0'
 }

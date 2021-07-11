@@ -6,6 +6,20 @@
     android:layout_height="match_parent"
     tools:context=".ui.MainActivity">
 
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/primaryColor"
+        app:layout_collapseMode="pin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:menu="@menu/main_menu"
+        app:navigationIcon="@drawable/btn_backarticle_normal"
+        app:title="MESSAGE FROM CODI"
+        app:titleTextColor="@color/white" />
+
     <FrameLayout
         android:id="@+id/frame_container"
         android:layout_width="match_parent"

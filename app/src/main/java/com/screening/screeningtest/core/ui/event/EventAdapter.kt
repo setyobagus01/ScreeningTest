@@ -27,6 +27,7 @@ class EventAdapter: RecyclerView.Adapter<EventAdapter.EventViewHolder>() {
                     .into(imgEvent)
                 eventName.text = event.name
                 eventDate.text = event.date
+                eventDescription.text = event.description
             }
         }
 
